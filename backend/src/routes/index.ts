@@ -18,7 +18,7 @@ const routes: FastifyPluginAsync = async (server) => {
         hello: 'world',
       }
 
-      return state
+      return stateNonExistent
 		},
 	);
 };
