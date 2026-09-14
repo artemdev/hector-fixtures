@@ -26,12 +26,14 @@ Example history:
 
 ## Tags
 
-Each reproducing `<id>-bug` commit is tagged `<id>-bug` so the error can be checked
-out and reproduced directly:
+Each reproducing `<id>-bug` commit is tagged with a descriptive
+`<id>-<error-type>-<description>` name so the error can be checked out and reproduced
+directly:
 
 ```
-git checkout 1-bug   # ReferenceError
-git checkout 2-bug   # TypeError: Cannot read properties of undefined
+git checkout 1-reference-error-undefined-variable   # ReferenceError: stateNonExistent is not defined
+git checkout 2-type-error-cannot-read-undefined      # TypeError: Cannot read properties of undefined (reading 'trim')
 ```
 
-The matching Sentry event payload lives in `sentry/<id>-bug.json`.
+The matching Sentry event payload lives in `sentry/<tag>.json`, e.g.
+`sentry/1-reference-error-undefined-variable.json`.
