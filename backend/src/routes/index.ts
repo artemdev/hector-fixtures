@@ -21,6 +21,27 @@ const routes: FastifyPluginAsync = async (server) => {
       return state
 		},
 	);
+
+	server.get(
+		'/greeting',
+		{
+			schema: {
+				response: {
+					200: Type.Object({
+						greeting: Type.String(),
+					}),
+				},
+			},
+		},
+		async (request) => {
+
+			const { name } = request.query as { name: string };
+
+			const greeting = `Hello, ${name.trim()}!`;
+
+			return { greeting };
+		},
+	);
 };
 
 export default routes;
