@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/node';
 import fastify from 'fastify';
 import config from './plugins/config.js';
 import routes from './routes/index.js';
@@ -17,6 +18,9 @@ const server = fastify({
 
 await server.register(config);
 await server.register(routes);
+
+Sentry.setupFastifyErrorHandler(server);
+
 await server.ready();
 
 export default server;
