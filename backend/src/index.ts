@@ -1,3 +1,5 @@
+
+import "./sentry.ts";
 import server from './server.js';
 
 process.on('unhandledRejection', (err) => {
