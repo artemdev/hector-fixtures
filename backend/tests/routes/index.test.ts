@@ -55,3 +55,14 @@ describe('GET /greeting', () => {
 		expect(response.statusCode).eq(400);
 	});
 });
+
+describe('GET /users/:id', () => {
+	test('Should return user 1', async () => {
+		const response = await server.inject({
+			method: 'GET',
+			path: '/users/1',
+		});
+		expect(response.statusCode).eq(200);
+		expect(response.json()).deep.eq({ id: 1, email: 'ada@example.com' });
+	});
+});

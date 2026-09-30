@@ -46,6 +46,31 @@ const routes: FastifyPluginAsync = async (server) => {
 		},
 	);
 
+	const users = [
+		{ id: 1, email: 'ada@example.com' },
+		{ id: 2, email: 'linus@example.com' },
+	];
+
+	server.get(
+		'/users/:id',
+		{
+			schema: {
+				response: {
+					200: Type.Object({
+						id: Type.Number(),
+						email: Type.String(),
+					}),
+				},
+			},
+		},
+		async (request) => {
+			const { id } = request.params as { id: number };
+			const user = users.find((u) => u.id === id);
+
+			return { id: user.id, email: user.email.toLowerCase() };
+		},
+	);
+
 	server.post('/sentry/webhook', async (request, reply) => {
 		console.log('\n===== SENTRY WEBHOOK BODY =====');
 		console.log(JSON.stringify(request.body, null, 2));
