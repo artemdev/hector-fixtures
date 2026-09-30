@@ -66,3 +66,13 @@ describe('GET /users/:id', () => {
 		expect(response.json()).deep.eq({ id: 1, email: 'ada@example.com' });
 	});
 });
+
+describe('GET /users/:id (lookup)', () => {
+	test('Should return 404 for an unknown user', async () => {
+		const response = await server.inject({
+			method: 'GET',
+			path: '/users/99',
+		});
+		expect(response.statusCode).eq(404);
+	});
+});

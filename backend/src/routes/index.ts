@@ -55,6 +55,9 @@ const routes: FastifyPluginAsync = async (server) => {
 		'/users/:id',
 		{
 			schema: {
+				params: Type.Object({
+					id: Type.Integer(),
+				}),
 				response: {
 					200: Type.Object({
 						id: Type.Number(),
@@ -63,9 +66,12 @@ const routes: FastifyPluginAsync = async (server) => {
 				},
 			},
 		},
-		async (request) => {
+		async (request, reply) => {
 			const { id } = request.params as { id: number };
 			const user = users.find((u) => u.id === id);
+			if (!user) {
+				return reply.code(404).send();
+			}
 
 			return { id: user.id, email: user.email.toLowerCase() };
 		},
