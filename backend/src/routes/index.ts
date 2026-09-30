@@ -69,7 +69,7 @@ const routes: FastifyPluginAsync = async (server) => {
 				return reply.code(404).send();
 			}
 
-			return { summary: `Order ${order.id}: ${formatPrice(order.amount, order.currency)}` };
+			return { summary: `Order ${order.id}: ${formatPrice(order.total, order.currency)}` };
 		},
 	);
 

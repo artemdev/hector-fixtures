@@ -55,3 +55,22 @@ describe('GET /greeting', () => {
 		expect(response.statusCode).eq(400);
 	});
 });
+
+describe('GET /orders/:id/summary', () => {
+	test('Should summarise the order total', async () => {
+		const response = await server.inject({
+			method: 'GET',
+			path: '/orders/o-1/summary',
+		});
+		expect(response.statusCode).eq(200);
+		expect(response.json()).deep.eq({ summary: 'Order o-1: 19.90 EUR' });
+	});
+
+	test('Should return 404 for an unknown order', async () => {
+		const response = await server.inject({
+			method: 'GET',
+			path: '/orders/o-404/summary',
+		});
+		expect(response.statusCode).eq(404);
+	});
+});
