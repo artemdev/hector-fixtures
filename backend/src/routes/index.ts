@@ -26,6 +26,9 @@ const routes: FastifyPluginAsync = async (server) => {
 		'/greeting',
 		{
 			schema: {
+				querystring: Type.Object({
+					name: Type.String(),
+				}),
 				response: {
 					200: Type.Object({
 						greeting: Type.String(),
@@ -34,7 +37,6 @@ const routes: FastifyPluginAsync = async (server) => {
 			},
 		},
 		async (request) => {
-
 			const { name } = request.query as { name: string };
 
 			const greeting = `Hello, ${name.trim()}!`;
