@@ -35,9 +35,9 @@ const routes: FastifyPluginAsync = async (server) => {
 		},
 		async (request) => {
 
-			const { name } = request.query as { name: string };
+			const { name } = request.query as { name?: string };
 
-			const greeting = `Hello, ${name.trim()}!`;
+			const greeting = `Hello, ${(name ?? '').trim()}!`;
 
 			return { greeting };
 		},
